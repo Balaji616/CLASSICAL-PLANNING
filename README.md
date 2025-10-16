@@ -1,4 +1,12 @@
-# ExpNo:10 Implementation of Classical Planning Algorithm
+ # ExpNo:10 Implementation of Classical Planning Algorithm
+# NAME:BHARATHI P </li>
+# REGISTER NUMBER: 212224060043</li>
+
+# AIM:
+# To implement a classical planning algorithm to find a plan
+# from initial state to goal state using a suitable search strategy.
+
+
 # Algorithm or Steps Involved:
 <ol>
   <li>Define the initial state</li>
@@ -8,6 +16,58 @@
   <li>Print the plan</li>
 </ol>
 
+
+from copy import deepcopy
+from collections import deque
+
+# Function to check if preconditions are satisfied
+def preconditions_met(state, preconditions):
+    for key, value in preconditions.items():
+        if key not in state or state[key] != value:
+            return False
+    return True
+
+# Function to apply the effect of an action
+def apply_effect(state, effect):
+    new_state = deepcopy(state)
+    for key, value in effect.items():
+        new_state[key] = value
+    return new_state
+
+# Function to check if goal state is reached
+def goal_reached(state, goal_state):
+    for key, value in goal_state.items():
+        if key not in state or state[key] != value:
+            return False
+    return True
+
+# The main planning function (using Breadth-First Search)
+def find_plan(initial_state, goal_state, actions):
+    queue = deque([(initial_state, [])])
+    visited = []
+
+    while queue:
+        state, plan = queue.popleft()
+
+        # Check if goal is achieved
+        if goal_reached(state, goal_state):
+            return plan
+
+        # Avoid revisiting states
+        state_tuple = tuple(sorted(state.items()))
+        if state_tuple in visited:
+            continue
+        visited.append(state_tuple)
+
+        # Try all possible actions
+        for action_name, action_details in actions.items():
+            if preconditions_met(state, action_details['precondition']):
+                new_state = apply_effect(state, action_details['effect'])
+                new_plan = plan + [action_name]
+                queue.append((new_state, new_plan))
+
+    return None
+    
 # Example - 1
 ```
 initial_state = {'A': 'Table', 'B': 'Table'}
@@ -43,6 +103,6 @@ print(plan)
 ```
 ['move_A_to_B', 'move_B_to_C']
 ```
+ Result:</li>
 
-# Please Prepare Solution or Definition For the method find_plan(initial_state, goal_state, actions)
-<h3>You Can use any of the searching Strategies for planning and executing a sequence of actions.<br> You can also look in to the Code given in the Repository.</h3>
+The program successfully implements a classical planning algorithm that determines a valid sequence of actions (plan) to reach the goal state from the initial state.</li>

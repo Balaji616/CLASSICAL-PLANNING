@@ -1,6 +1,6 @@
  # ExpNo:10 Implementation of Classical Planning Algorithm
-# NAME:BHARATHI P </li>
-# REGISTER NUMBER: 212224060043</li>
+# NAME: BALAJI V</li>
+# REGISTER NUMBER: 25018082</li>
 
 # AIM:
 # To implement a classical planning algorithm to find a plan
